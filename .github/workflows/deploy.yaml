@@ -1,0 +1,36 @@
+name: Deploy Lambda to AWS
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  aws_cdk:
+    runs_on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Install npm
+        run: 'sudo apt update -y && sudo apt install nodejs npm -y'
+
+      - name: Install AWS CDK
+        run: 'sudo npm install -g aws-cdk'
+      
+      - name: Install requirements
+        run: 'pip3 install -r requirements.txt'
+
+      - name: CDK Synth
+        run: cdk synth
+
+      - name: CDK Deploy
+        run: cdk deploy
+
+
