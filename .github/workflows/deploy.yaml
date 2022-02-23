@@ -5,8 +5,9 @@ on:
       - develop
 
 jobs:
-  aws_cdk:
-    runs_on: ubuntu-latest
+  deploy:
+    name: Deploy CDK to AWS
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
