@@ -19,8 +19,8 @@ class SyncTogglStack(Stack):
         sync_toggl_lambda = _lambda.Function(
             self, 'SyncTogglHandler',
             runtime=_lambda.Runtime.PYTHON_3_8,
-            code=_lambda.Code.from_asset('lambdas/sync_toggl'),
-            handler='handler.handle',
+            code=_lambda.Code.from_asset('lambdas/'),
+            handler='sync_toggl/handler.handle',
         )
 
         apigw.LambdaRestApi(
