@@ -16,14 +16,14 @@ class SyncTogglStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-    sync_toggl_lambda = _lambda.Function(
-        self, 'SyncTogglHandler',
-        runtime=_lambda.Runtime.PYTHON_3_8,
-        code=_lambda.Code.from_asset('lambdas/sync_toggl'),
-        handler='handler.handle',
-    )
+        sync_toggl_lambda = _lambda.Function(
+            self, 'SyncTogglHandler',
+            runtime=_lambda.Runtime.PYTHON_3_8,
+            code=_lambda.Code.from_asset('lambdas/sync_toggl'),
+            handler='handler.handle',
+        )
 
-    apigw.LambdaRestApi(
-        self, 'Endpoint',
-        handler=sync_toggl_lambda
-    )
+        apigw.LambdaRestApi(
+            self, 'Endpoint',
+            handler=sync_toggl_lambda
+        )

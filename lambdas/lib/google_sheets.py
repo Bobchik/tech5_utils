@@ -2,6 +2,7 @@ import os
 import gspread
 import string
 import logging
+import aws_secrets
 from datetime import date, datetime
 
 
@@ -9,9 +10,9 @@ class GoogleSheets:
     def __init__(self, doc, sheet, header_row=1, last_data_row=None):
         # make sure the sheet is shared with developer@t5-local-test.iam.gserviceaccount.com
         # filepath = os.path.abspath(os.path.join(__file__, 'credentials_t5.json'))
-        credentials_file = os.environ.get('GOOGLE_CREDENTIALS')
-        filepath = os.path.join(os.path.dirname(__file__), credentials_file)
-        gc = gspread.service_account(filename=filepath)
+        credentials = aws_secrets.get_secret('gcp_credentials_tech5')
+        # filepath = os.path.join(os.path.dirname(__file__), credentials_file)
+        gc = gspread.service_account_from_dict(info=credentials)
         self.doc_name = doc
         if doc.startswith('https://'):
             self.doc = gc.open_by_url(doc)
