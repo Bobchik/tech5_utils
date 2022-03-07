@@ -28,8 +28,8 @@ class SyncTogglStack(Stack):
             handler=sync_toggl_lambda
         )
 
-        start = api.root.get_resource("start")
+        start = api.root.add_resource("start")
         start.add_method("GET")
 
-        end = api.root.get_resource("end")
+        end = api.root.add_resource("end")
         end.add_method("GET")
